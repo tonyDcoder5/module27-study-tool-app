@@ -22,21 +22,35 @@ function ListDecks() {
     return () => abortController.abort;
   }, []);
 
-  const deleteHandler = (id) => {
-      window.confirm("Delete this deck?\n\nYou will not be able to recover it.")
-      console.log("TODO: call deleteDeck function and rerender page->")
-  }
+  const callDelete = async (id) => {
+    const abortController = new AbortController();
+    console.log("deleting", id);
+    try {
+      await deleteDeck(id, abortController.signal);
+      setDeckList(deckList.filter((deck)=> deck.id !== id));
+    } catch (error) {
+      console.log(error.message);
+    }
 
+    return () => abortController.abort;
+  };
+
+  const deleteHandler = (id) => {
+    if (
+      window.confirm(
+        `Delete this deck? ${id}\n\nYou will not be able to recover it.`
+      )
+        ? callDelete(id)
+        : console.log("cancelled")
+    )
+      console.log("deleted", id);
+  };
 
   const list = deckList.map((deck) => {
-
-    return <Deck key={deck.id} deck={deck} deleteHandler={deleteHandler}/>;
+    return <Deck key={deck.id} deck={deck} deleteHandler={deleteHandler} />;
   });
 
-
-  return <div className="container">
-      {list}
-      </div>;
+  return <div className="container">{list}</div>;
 }
 
 export default ListDecks;

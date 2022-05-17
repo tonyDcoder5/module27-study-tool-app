@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 export const CreateDeck = () => {
   /*
     TODO:
-    add eventhandlers for form submission
-    add useHistory in order to link Cancel button with home page
     pass on form data to DeckView component to add/edit cards on new deck
 */
 
   const [formData, setFormData] = useState({
+    id: "",
     name: "",
     description: "",
   });
@@ -19,6 +18,12 @@ export const CreateDeck = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    setFormData({...formData, id: Date.now()})
+
+    //setFormData({...formData, id: }) add an id prop for each new deck created in order to navigate to a new Deck view page
+    // submit formData as a Deck object to the DeckView component and navigate user to view page to add cards 
+
+    console.log(formData);
   };
 
   return (
@@ -33,38 +38,43 @@ export const CreateDeck = () => {
           </li>
         </ol>
       </nav>
+      <label htmlFor="create-deck-form">
+        <h2>Create Deck</h2>
+      </label>
       <form onSubmit={submitHandler}>
         <div className="form-group">
-          <label htmlFor="create-deck-form">
-            <h2>+ Create Deck</h2>
-          </label>
-          <br />
           <label htmlFor="deck-name">Name</label>
           <br />
           <input
+            className="form-control"
             type="text"
             name="name"
             id="name"
             placeholder="Deck Name"
-            value=""
+            value={formData.name}
             onChange={handleChange}
           ></input>
           <br />
-          <label htmlFor="deck-desc">Description</label>
-          <br />
-          <textarea
-            type="text"
-            name="description"
-            id="description"
-            placeholder="Brief Description of the deck"
-            value=""
-            onChange={handleChange}
-          ></textarea>
-          <br />
-          <button className="btn btn-secondary">Cancel</button>
-          <button className="btn btn-primary" type="submit">
-            Submit
-          </button>
+            <label htmlFor="deck-desc">Description</label>
+            <br />
+            <textarea
+              className="form-control"
+              type="text"
+              name="description"
+              id="description"
+              placeholder="Brief Description of the deck"
+              value={formData.description}
+              onChange={handleChange}
+            ></textarea>
+            <br />
+          <div className="btn-group-justified">
+            <Link to="/">
+              <button className="btn btn-secondary">Cancel</button>
+            </Link>
+            <Link to={`/decks/${formData.id}`}><button className="btn btn-primary m-1" type="submit">
+              Submit
+            </button></Link>
+          </div>
         </div>
       </form>
     </div>

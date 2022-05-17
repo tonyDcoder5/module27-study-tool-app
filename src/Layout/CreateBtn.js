@@ -5,7 +5,7 @@ export const CreateBtn = () => {
   return (
     <div className="container mb-2">
       <Link to="/decks/new">
-        <button type="button" className="btn btn-secondary">
+        <button type="button" className="btn btn-lg btn-primary">
           + Create Deck
         </button>
       </Link>
