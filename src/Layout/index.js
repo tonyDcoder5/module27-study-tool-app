@@ -59,7 +59,7 @@ function Layout() {
   {}
 };
   if(!deckList){
-    return  <Fragment>
+    return  <div>
     <Header />
     <div>LOADING</div>
     <footer>
@@ -69,11 +69,11 @@ function Layout() {
           <br />
         </div>
       </footer>
-    </Fragment>
+    </div>
   }
   else{
   return (
-    <Fragment>
+    <div>
       <Header />
       <div className="container">
         <Switch>
@@ -111,7 +111,7 @@ function Layout() {
           <br />
         </div>
       </footer>
-    </Fragment>
+    </div>
   );}
 }
 
