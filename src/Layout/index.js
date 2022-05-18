@@ -1,22 +1,21 @@
-import { React, useEffect, useState } from "react";
+import { Fragment, React, useEffect, useState } from "react";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import CreateBtn from "./CreateBtn";
 import ListDecks from "../Decks/ListDecks";
-import CreateDeck from "../Decks/CreateDeck";
 import DeckView from "../Decks/DeckView";
 import Study from "../Decks/Study";
+import CreateDeck from "../Decks/CreateDeck";
+import EditDeck from "../Decks/EditDeck";
+import AddCard from "../Decks/Cards/AddCard";
+import EditCard from "../Decks/Cards/EditCard";
 import {
-  createDeck,
-  readDeck,
-  updateDeck,
   deleteDeck,
   listDecks,
 } from "../utils/api/index";
 import { Switch, Route, useHistory } from "react-router-dom";
 
 function Layout() {
-  
   const [deckList, setDeckList] = useState([]);
   const history = useHistory();
 
@@ -26,7 +25,7 @@ function Layout() {
     const loadDecks = async () => {
       try {
         const decks = await listDecks(abortController.signal);
-        setDeckList(decks);
+        setDeckList(...deckList, decks);
       } catch (error) {
         console.log(error.message);
       }
@@ -37,10 +36,10 @@ function Layout() {
 
   const callDelete = async (id) => {
     const abortController = new AbortController();
-    console.log("deleting", id);
+    
     try {
-      await deleteDeck(id, abortController.signal);
       setDeckList(deckList.filter((deck) => deck.id !== id));
+      await deleteDeck(id, abortController.signal);
       history.push("/");
     } catch (error) {
       console.log(error.message);
@@ -55,33 +54,51 @@ function Layout() {
         `Delete this deck? ${id}\n\nYou will not be able to recover it.`
       )
         ? callDelete(id)
-        : console.log("cancelled")
+        : history.push("/")
     )
-      console.log("deleted", id);
-  };
-
+  {}
+};
+  if(!deckList){
+    return  <Fragment>
+    <Header />
+    <div>LOADING</div>
+    <footer>
+        <div>
+          <br />
+          <br />
+          <br />
+        </div>
+      </footer>
+    </Fragment>
+  }
+  else{
   return (
-    <>
+    <Fragment>
       <Header />
       <div className="container">
-        {/* TODO: Implement the screen starting here */}
         <Switch>
           <Route exact path="/">
             <CreateBtn />
             <ListDecks deckList={deckList} deleteHandler={deleteHandler} />
           </Route>
-          <Route path="/decks/new">
-            <CreateDeck deckList={deckList} />
+          <Route exact path="/decks/new">
+            <CreateDeck deckList={deckList} setDeckList={setDeckList} />
           </Route>
           <Route path="/decks/:deckId/study">
             <Study />
           </Route>
-          <Route path="/decks/:deckId">
-            <DeckView deleteHandler={deleteHandler}/>
+          <Route exact path="/decks/:deckId">
+            <DeckView deleteHandler={deleteHandler} />
           </Route>
-          {/* <Route path="/decks/:deckId/edit">
-            <DeckEdit />
-          </Route> */}
+          <Route path="/decks/:deckId/edit">
+            <EditDeck />
+          </Route>
+          <Route path="/decks/:deckId/cards/new">
+            <AddCard />
+          </Route>
+          <Route path="/decks/:deckId/cards/:cardId/edit">
+            <EditCard />
+          </Route>
           <Route>
             <NotFound />
           </Route>
@@ -92,11 +109,10 @@ function Layout() {
           <br />
           <br />
           <br />
-          <br />
         </div>
       </footer>
-    </>
-  );
+    </Fragment>
+  );}
 }
 
 export default Layout;

@@ -1,13 +1,10 @@
 import { React, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { createDeck } from "../utils/api";
+import DeckForm from "./DeckForm";
 
-export const CreateDeck = ({deckList}) => {
-  /*
-    TODO:
-    pass on form data to DeckView component to add/edit cards on new deck
-*/
-
+export const CreateDeck = ({ deckList, setDeckList }) => {
+  const history = useHistory();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -16,15 +13,18 @@ export const CreateDeck = ({deckList}) => {
   const handleChange = (event) =>
     setFormData({ ...formData, [event.target.name]: event.target.value });
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    const id = deckList.slice(0) + 1;
-    setFormData({ id: id, ...formData });
-    createDeck(formData);
-    //setFormData({...formData, id: }) add an id prop for each new deck created in order to navigate to a new Deck view page
-    // submit formData as a Deck object to the DeckView component and navigate user to view page to add cards
+    const abortController = new AbortController(); 
 
-    console.log(formData, deckList);
+    try{
+      const newDeck = await createDeck(formData, abortController.signal);
+      setDeckList([...deckList, newDeck])
+      history.push(`/decks/${newDeck.id}`);
+  }
+  catch(error){
+      console.log(error.message)
+  }
   };
 
   return (
@@ -39,45 +39,15 @@ export const CreateDeck = ({deckList}) => {
           </li>
         </ol>
       </nav>
+
       <label htmlFor="create-deck-form">
         <h2>Create Deck</h2>
       </label>
-      <form onSubmit={submitHandler}>
-        <div className="form-group">
-          <label htmlFor="deck-name">Name</label>
-          <br />
-          <input
-            className="form-control"
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Deck Name"
-            value={formData.name}
-            onChange={handleChange}
-          ></input>
-          <br />
-          <label htmlFor="deck-desc">Description</label>
-          <br />
-          <textarea
-            className="form-control"
-            type="text"
-            name="description"
-            id="description"
-            placeholder="Brief Description of the deck"
-            value={formData.description}
-            onChange={handleChange}
-          ></textarea>
-          <br />
-          <div className="btn-group-justified">
-            <Link to="/">
-              <button className="btn btn-secondary">Cancel</button>
-            </Link>
-              <button className="btn btn-primary m-1" type="submit">
-                Submit
-              </button>
-          </div>
-        </div>
-      </form>
+      <DeckForm
+        deck={formData}
+        handleChange={handleChange}
+        submitHandler={submitHandler}
+      />
     </div>
   );
 };

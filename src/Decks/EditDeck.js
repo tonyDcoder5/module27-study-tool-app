@@ -1,52 +1,43 @@
 import { React, useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { readCard, readDeck, updateCard } from "../../utils/api";
-import CardForm from "./CardForm";
+import { readDeck, updateDeck } from "../utils/api";
+import DeckForm from "./DeckForm";
 
-export const EditCard = () => {
-  const { deckId, cardId } = useParams();
+export const EditDeck = () => {
+  const { deckId } = useParams();
   const history = useHistory();
 
-  const initCard = {
-    id: cardId,
-    front: "",
-    back: "",
-    deckId: deckId,
-}
-
-  const [deck, setDeck] = useState({});
-  const [card, setCard] = useState(initCard)
+  const [deckName, setDeckName] = useState("")
+  const [deck, setDeck] = useState({
+      id: "",
+      name: "",
+      description: "",
+  });
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    const loadCard = async () => {
+    const loadDeck = async () => {
       try {
-        const deckFetch = await readDeck(deckId);
+        const deckFetch = await readDeck(deckId, abortController.signal);
         setDeck(deckFetch);
-        const cardFetch = await readCard(cardId, abortController.signal); 
-        setCard(cardFetch);
+        setDeckName(deckFetch.name)
       } catch (error) {
         console.log(error.message);
       }
     };
-    loadCard();
+    loadDeck();
     return () => abortController.abort;
-  }, [cardId]);
+  }, [deckId]);
 
   const handleChange = (event) =>
-    setCard({ ...card, [event.target.name]: event.target.value });
+    setDeck({ ...deck, [event.target.name]: event.target.value });
 
-  const submitHandler = async (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    const abortController = new AbortController();
-    try{
-        await updateCard(card, abortController.signal);
-        history.push(`/decks/${deckId}`)
-    }
-    catch(error){
-        console.log(error.message)
-    }
+    updateDeck(deck);
+    
+    history.push(`/decks/${deck.id}`)
   };
 
   if (deck) {
@@ -58,18 +49,18 @@ export const EditCard = () => {
                 <Link to="/">Home</Link>
               </li>
               <li className="breadcrumb-item">
-                <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
+                <Link to={`/decks/${deck.id}`}>{deckName}</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Edit Card {cardId}
+                Edit Deck
               </li>
             </ol>
           </nav>
           <label htmlFor="create-deck-form">
-            <h2>Edit Card</h2>
+            <h2>Edit Deck</h2>
           </label>
-          <CardForm
-            card={card}
+          <DeckForm
+            deck={deck}
             handleChange={handleChange}
             submitHandler={submitHandler}
           />
@@ -81,4 +72,4 @@ export const EditCard = () => {
   }
 };
 
-export default EditCard;
+export default EditDeck;

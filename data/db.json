@@ -9,6 +9,11 @@
       "name": "React Router",
       "description": "React Router is a collection of navigational components that compose declaratively with your application.",
       "id": 2
+    },
+    {
+      "name": "this this ",
+      "description": "this this this ",
+      "id": 3
     }
   ],
   "cards": [
@@ -16,7 +21,8 @@
       "id": 1,
       "front": "Differentiate between Real DOM and Virtual DOM.",
       "back": "Virtual DOM updates are faster but do not directly update the HTML",
-      "deckId": 1
+      "deckId": 1,
+      "card-front": "Differentiate between Real DOM and Virtual DOM"
     },
     {
       "id": 2,
@@ -43,11 +49,52 @@
       "id": 5
     },
     {
-      "cards": [],
-      "front": "b",
-      "back": "b",
-      "deckId": 1,
-      "id": 7
+      "id": 1652901822850,
+      "front": "test add from study condition",
+      "back": "did it work?",
+      "deckId": 2
+    },
+    {
+      "front": "add 2",
+      "back": "add 2 back",
+      "deckId": 3,
+      "id": 1652901822852
+    },
+    {
+      "front": "add 3",
+      "back": "back of 3",
+      "deckId": 3,
+      "id": 1652901822853
+    },
+    {
+      "front": "how we doing",
+      "back": "i feel good",
+      "deckId": 3,
+      "id": 1652901822854
+    },
+    {
+      "front": "add 4 ",
+      "back": "add 4b",
+      "deckId": 3,
+      "id": 1652901822855
+    },
+    {
+      "front": "add 5 ",
+      "back": "add 5 b",
+      "deckId": 3,
+      "id": 1652901822856
+    },
+    {
+      "front": "add 6 ",
+      "back": "add6b",
+      "deckId": 3,
+      "id": 1652901822857
+    },
+    {
+      "front": "ytestes",
+      "back": "etsteses",
+      "deckId": 3,
+      "id": 1652901822858
     }
   ]
 }

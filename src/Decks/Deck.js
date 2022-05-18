@@ -3,14 +3,21 @@ import { Link, useHistory, useRouteMatch } from "react-router-dom";
 
 function Deck({ deck, deleteHandler }) {
 
+  if(!deck){
+    return <div>Loading Deck</div>
+  }
+  else{
   return (
     <article className=" m-auto align-self-stretch">
       <div className="border p-4 h-100 d-flex flex-column">
         <div className="row">
           <h2 className="col-8">{deck.name}</h2>
-          <p className="col-4 text-right">
+          {deck.cards && <p className="col-4 text-right">
             {deck.cards.length} card{deck.cards.length !== 1 && `s`}
-          </p>
+          </p>}
+          {!deck.cards && <p className="col-4 text-right">
+            0 cards
+          </p>}
         </div>
         <div><p>{deck.description}</p></div>
         <div className="row btn-group">
@@ -36,7 +43,7 @@ function Deck({ deck, deleteHandler }) {
         </div>
       </div>
     </article>
-  );
+  );}
 }
 
 export default Deck;
