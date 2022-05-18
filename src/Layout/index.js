@@ -13,11 +13,12 @@ import {
   deleteDeck,
   listDecks,
 } from "../utils/api/index";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 
 function Layout() {
   
   const [deckList, setDeckList] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -40,6 +41,7 @@ function Layout() {
     try {
       await deleteDeck(id, abortController.signal);
       setDeckList(deckList.filter((deck) => deck.id !== id));
+      history.push("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -75,7 +77,7 @@ function Layout() {
             <Study />
           </Route>
           <Route path="/decks/:deckId">
-            <DeckView />
+            <DeckView deleteHandler={deleteHandler}/>
           </Route>
           {/* <Route path="/decks/:deckId/edit">
             <DeckEdit />

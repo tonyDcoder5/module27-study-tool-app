@@ -1,12 +1,13 @@
 import { React, useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { readDeck } from "../utils/api";
 import CardList from "./Cards/CardList";
 
-function DeckView() {
+function DeckView({deleteHandler}) {
   const { deckId } = useParams();
   const [currentDeck, setDeck] = useState({});
   const [cards, setCards] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -64,13 +65,13 @@ function DeckView() {
                 Add Cards
               </button>
             </Link>
+            <div>
             <button
               className="btn btn-danger"
               name="delete"
-              onClick={() => console.log("TODO: delete deck")}
-            >
+              onClick={()=> {deleteHandler(currentDeck.id)}}>
               Delete
-            </button>
+            </button></div>
           </section>
         </div>
         <br />

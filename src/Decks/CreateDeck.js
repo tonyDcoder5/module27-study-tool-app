@@ -18,7 +18,7 @@ export const CreateDeck = ({deckList}) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const id = deckList.length + 1;
+    const id = deckList.slice(0) + 1;
     setFormData({ id: id, ...formData });
     createDeck(formData);
     //setFormData({...formData, id: }) add an id prop for each new deck created in order to navigate to a new Deck view page
