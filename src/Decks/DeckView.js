@@ -1,17 +1,12 @@
 import { React, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { readDeck } from "../utils/api";
-import Card from "./Cards/Card";
+import CardList from "./Cards/CardList";
 
 function DeckView() {
   const { deckId } = useParams();
   const [currentDeck, setDeck] = useState({});
   const [cards, setCards] = useState([]);
-
-  const listCards = () => {
-    return cards.map((card) => <Card card={card} />);
-  };
-  // CANNOT READ UNDEFINED FROM CARDS?!?!
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -20,7 +15,7 @@ function DeckView() {
       try {
         const deck = await readDeck(deckId, abortController.signal);
         setDeck(deck);
-        setCards(currentDeck.cards);
+        setCards(deck.cards);
       } catch (error) {
         console.log(error.message);
       }
@@ -30,12 +25,14 @@ function DeckView() {
     return () => abortController.abort;
   }, []);
 
+
+  console.log(currentDeck, cards)
+
   if (!deckId) {
     return <h1>Loading...</h1>;
   } else {
     //const listCards = cards.map((card) => <Card card={card} />);
     
-
     return (
       <div className="container">
         <nav aria-label="breadcrumb">
@@ -79,9 +76,9 @@ function DeckView() {
         <br />
         <div className="container">
           <h2>Cards</h2>
-          <table>
-            <tbody>{}</tbody>
-          </table>
+          <div>
+           
+          </div>
         </div>
       </div>
     );

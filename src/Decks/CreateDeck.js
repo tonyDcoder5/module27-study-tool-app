@@ -18,10 +18,10 @@ export const CreateDeck = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setFormData({...formData, id: Date.now()})
+    setFormData({ ...formData, id: Date.now() });
 
     //setFormData({...formData, id: }) add an id prop for each new deck created in order to navigate to a new Deck view page
-    // submit formData as a Deck object to the DeckView component and navigate user to view page to add cards 
+    // submit formData as a Deck object to the DeckView component and navigate user to view page to add cards
 
     console.log(formData);
   };
@@ -55,25 +55,27 @@ export const CreateDeck = () => {
             onChange={handleChange}
           ></input>
           <br />
-            <label htmlFor="deck-desc">Description</label>
-            <br />
-            <textarea
-              className="form-control"
-              type="text"
-              name="description"
-              id="description"
-              placeholder="Brief Description of the deck"
-              value={formData.description}
-              onChange={handleChange}
-            ></textarea>
-            <br />
+          <label htmlFor="deck-desc">Description</label>
+          <br />
+          <textarea
+            className="form-control"
+            type="text"
+            name="description"
+            id="description"
+            placeholder="Brief Description of the deck"
+            value={formData.description}
+            onChange={handleChange}
+          ></textarea>
+          <br />
           <div className="btn-group-justified">
             <Link to="/">
               <button className="btn btn-secondary">Cancel</button>
             </Link>
-            <Link to={`/decks/${formData.id}`}><button className="btn btn-primary m-1" type="submit">
-              Submit
-            </button></Link>
+            <Link to={`/decks/${formData.id}`}>
+              <button className="btn btn-primary m-1" type="submit">
+                Submit
+              </button>
+            </Link>
           </div>
         </div>
       </form>
