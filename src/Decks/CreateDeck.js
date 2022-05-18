@@ -1,14 +1,14 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
+import { createDeck } from "../utils/api";
 
-export const CreateDeck = () => {
+export const CreateDeck = ({deckList}) => {
   /*
     TODO:
     pass on form data to DeckView component to add/edit cards on new deck
 */
 
   const [formData, setFormData] = useState({
-    id: "",
     name: "",
     description: "",
   });
@@ -18,12 +18,13 @@ export const CreateDeck = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setFormData({ ...formData, id: Date.now() });
-
+    const id = deckList.length + 1;
+    setFormData({ id: id, ...formData });
+    createDeck(formData);
     //setFormData({...formData, id: }) add an id prop for each new deck created in order to navigate to a new Deck view page
     // submit formData as a Deck object to the DeckView component and navigate user to view page to add cards
 
-    console.log(formData);
+    console.log(formData, deckList);
   };
 
   return (
@@ -71,11 +72,9 @@ export const CreateDeck = () => {
             <Link to="/">
               <button className="btn btn-secondary">Cancel</button>
             </Link>
-            <Link to={`/decks/${formData.id}`}>
               <button className="btn btn-primary m-1" type="submit">
                 Submit
               </button>
-            </Link>
           </div>
         </div>
       </form>
