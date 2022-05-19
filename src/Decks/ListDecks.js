@@ -1,4 +1,4 @@
-import { React } from "react";
+import React from "react";
 import Deck from "./Deck";
 
 function ListDecks({deckList, deleteHandler}) {
@@ -11,7 +11,7 @@ function ListDecks({deckList, deleteHandler}) {
     return <h1>Loading</h1>
   }
   else{
-  return <div className="container">{list}</div>;}
+  return <div className="container">{list}</div> }
 }
 
 export default ListDecks;
