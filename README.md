@@ -21,3 +21,8 @@ A flashcard application for helping students study online.
 <img width="1440" alt="6-StudyPage-CardFront" src="https://user-images.githubusercontent.com/101033695/169455445-f9d34ae9-3b9a-4776-86f0-20e8bf0c3105.png">
 <img width="1440" alt="6a-StudyPage-CardBack" src="https://user-images.githubusercontent.com/101033695/169455447-daecf386-64df-45e8-b889-a87a11f01923.png">
 <img width="1440" alt="6b-RestartStudyPage" src="https://user-images.githubusercontent.com/101033695/169455448-43ad8d04-1595-4377-995c-8dbf05649c3c.png">
+
+
+
+
+##### For full CRUD (Create, Read, Update, Delete) testing, checkout the /screenshots folder found in the main branch.
