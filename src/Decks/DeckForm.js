@@ -11,6 +11,7 @@ export const DeckForm = ({ deck, submitHandler, handleChange }) => {
           <label htmlFor="deck-name">Name</label>
           <br />
           <input
+            required = "true"
             className="form-control"
             type="text"
             name="name"
@@ -23,6 +24,7 @@ export const DeckForm = ({ deck, submitHandler, handleChange }) => {
           <label htmlFor="deck-desc">Description</label>
           <br />
           <textarea
+            required = "true"
             className="form-control"
             type="text"
             name="description"

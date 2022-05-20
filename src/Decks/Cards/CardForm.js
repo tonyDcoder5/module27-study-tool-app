@@ -16,6 +16,7 @@ export const CardForm = ({card, submitHandler, handleChange}) => {
             placeholder="Card Front"
             value={card.front}
             onChange={handleChange}
+            required = "true"
           />
           <br />
           <label htmlFor="card-back">Back</label>
@@ -28,6 +29,7 @@ export const CardForm = ({card, submitHandler, handleChange}) => {
             placeholder="Card Back"
             value={card.back}
             onChange={handleChange}
+            required = "true"
           />
           <br />
           <div className="btn-group-justified">

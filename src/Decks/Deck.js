@@ -31,15 +31,14 @@ function Deck({ deck, deleteHandler }) {
               <button className="btn btn-info" name="study">
               📖 Study
               </button>
-            </Link>
-          </div>
-          <div className="ml-5">
+            </Link>      
+          <span >
               <button
             className="btn btn-danger"
             name="delete"
             onClick={() => deleteHandler(deck.id)}>✖️</button>
-          </div>
-        
+          </span>
+        </div>
         </div>
       </div>
     </article>

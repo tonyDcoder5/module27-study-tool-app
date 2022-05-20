@@ -40,13 +40,12 @@ export const AddCard = () => {
     const abortController = new AbortController();
     try{
         await createCard(deckId, formData, abortController.signal);
-        setCards(newCard)
-        setFormData([...cards, newCard]);
+        setFormData(newCard);        
+        setCards(formData)
     }
     catch(error){
         console.log(error.message)
     }
-   
   };
 
   if(deck){

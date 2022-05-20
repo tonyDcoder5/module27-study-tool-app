@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 import Card from "./Card";
 import { deleteCard, readDeck } from "../../utils/api";
@@ -10,7 +10,6 @@ export default function CardList({ cards = [] , setDeck }) {
   const cardDelete = async (id) => {
     const abortController = new AbortController();
     try {
-      // setCards(cards.filter((card) => card.id !== id));
       await deleteCard(id, abortController.signal);
       const deck = await readDeck(deckId, abortController.signal);
       setDeck(deck);

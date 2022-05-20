@@ -18,17 +18,18 @@ export default function Card({card, cardDelete}) {
 
     return (
         <div key={card.id} className="card row d-flex">
-          <div className="col -4 w-50">
+          <div className="col-6">
             {card.front}
             </div>
-          <div className="col w-50">
-          {card.back}
-            <br />
+          <div className="col-6">
+          {card.back} 
+            <div>
             <Link to={`/decks/${card.deckId}/cards/${card.id}/edit`}><button className="btn btn-secondary">Edit</button></Link>
             <button
             className="btn btn-danger"
             name="delete" onClick={()=> cardDeleteHandler(card.id)}
             >✖️</button>
+            </div>
             </div>
           </div>
     );

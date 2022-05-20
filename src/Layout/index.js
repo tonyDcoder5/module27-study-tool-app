@@ -59,23 +59,17 @@ function Layout() {
   {}
 };
   if(!deckList){
-    return  <div>
+    return  (
+    <div className="container mb-5">
     <Header />
     <div>LOADING</div>
-    <footer>
-        <div>
-          <br />
-          <br />
-          <br />
-        </div>
-      </footer>
-    </div>
+    </div>)
   }
   else{
   return (
     <div>
       <Header />
-      <div className="container">
+      <div className="container mb-5">
         <Switch>
           <Route exact path="/">
             <CreateBtn />
@@ -104,13 +98,7 @@ function Layout() {
           </Route>
         </Switch>
       </div>
-      <footer>
-        <div>
-          <br />
-          <br />
-          <br />
-        </div>
-      </footer>
+
     </div>
   );}
 }
